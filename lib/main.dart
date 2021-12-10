@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'activity/Authentication/LoginPage.dart';
@@ -6,7 +5,6 @@ import 'constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ppmsweb/activity/dashboard/DashConnection.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,7 +58,7 @@ class MyApp extends StatelessWidget{
               switch (snapshot.connectionState) {
                 case ConnectionState.none:
                 case ConnectionState.waiting:
-                  return Scaffold(
+                return Scaffold(
                     body: Center(
                       child: Container(
                           width: 100,
@@ -75,11 +73,9 @@ class MyApp extends StatelessWidget{
                   } else {
                     print("main->LoginPage");
                     return const LoginPage();
-
                   }
               }
             }),
     );
-
   }
 }

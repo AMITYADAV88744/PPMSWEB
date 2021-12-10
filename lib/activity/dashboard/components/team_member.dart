@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-import 'package:ppmsweb/models/Team.dart';
 import '../../../constants.dart';
 
 class TeamMember extends StatefulWidget{
+  const TeamMember({Key? key}) : super(key: key);
+
   @override
   _TeamMember createState() => _TeamMember();
 }
@@ -36,9 +38,10 @@ class _TeamMember extends State<TeamMember> {
 
   @override
   Widget build(BuildContext context){
+
     return Container(
-        padding: EdgeInsets.all(defaultPadding),
-        decoration: BoxDecoration(color: secondaryColor,
+        padding: const EdgeInsets.all(defaultPadding),
+        decoration: const BoxDecoration(color: secondaryColor,
         borderRadius:  BorderRadius.all(Radius.circular(10)
         )
         ),
@@ -48,19 +51,19 @@ class _TeamMember extends State<TeamMember> {
               switch (snapshot.connectionState) {
                 case ConnectionState.none:
                 case ConnectionState.waiting:
-                return  Center(
-                    child: Container(
+                return  const Center(
+                    child: SizedBox(
                         width: 60,
                         height: 60,
                         child: CircularProgressIndicator()),
                 );
                 default:
                   if (snapshot.hasError) {
-                    return Center(
+                    return const Center(
                       child: Text("Error..."),);
                   }
                   if (!snapshot.hasData) {
-                    return Center(
+                    return const Center(
                       child: Text("No Data..."),);
                   } else {
                     for (int i = 0; i < snapshot.data!.length; i++) {
@@ -73,39 +76,43 @@ class _TeamMember extends State<TeamMember> {
                       role_3 = snap.get<String>('role_3')!;
                       member_4 = snap.get<String>('member_4')!;
                       role_4 = snap.get<String>('role_4')!;
-                     // print(snap);
+                      if (kDebugMode) {
+                        print(snap);
+                      }
                     }
-                    print(member_1);
+                    if (kDebugMode) {
+                      print(member_1);
+                    }
                     return ListView(
                         shrinkWrap: true,
                         children: <Widget>[
                           ListTile(
-                            leading: CircleAvatar(
+                            leading: const CircleAvatar(
                               backgroundImage: AssetImage(
-                                  "assets/avtar_team.png"),
+                                  "assets/images/avtar_team.png"),
                             ),
                             title: Text(member_1),
                             trailing: Text(role_1),
                           ),
                           ListTile(
-                            leading: CircleAvatar(
+                            leading: const CircleAvatar(
                               backgroundImage: AssetImage(
-                                  "assets/avtar_team.png"),
+                                  "assets/images/avtar_team.png"),
                             ),
                             title: Text(member_2),
                             trailing: Text(role_2),),
                           ListTile(
-                            leading: CircleAvatar(
+                            leading: const CircleAvatar(
                               backgroundImage: AssetImage(
-                                  "assets/avtar_team.png"),
+                                  "assets/images/avtar_team.png"),
                             ),
                             title: Text(member_3),
                             trailing: Text(role_3),
                           ),
                           ListTile(
-                            leading: CircleAvatar(
+                            leading: const CircleAvatar(
                               backgroundImage: AssetImage(
-                                  "assets/avtar_team.png"),
+                                  "assets/images/avtar_team.png"),
                             ),
                             title: Text(member_4),
                             trailing: Text(role_4),

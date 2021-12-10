@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:ppmsweb/activity/dashboard/DashConnection.dart';
@@ -11,7 +12,6 @@ class LoginPage extends StatefulWidget {
 }
 class _LoginPageState extends State<LoginPage> {
 
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   late String _email;
   late String _pass;
@@ -19,19 +19,19 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: ListView(
               children: <Widget>[
                 Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.all(10),
-                    child: Image(
+                    padding: const EdgeInsets.all(10),
+                    child: const Image(
                       image: AssetImage('assets/login_logo.png'),
                     )),
                 Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.all(10),
-                    child: Text(
+                    padding: const EdgeInsets.all(10),
+                    child: const Text(
                       'Project Management',
                       style: TextStyle(
                           color: Colors.blue,
@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                     alignment: Alignment.center,
                     padding: const EdgeInsets.all(10),
-                    child: Text(
+                    child: const Text(
                       'Sign in',
                       style: TextStyle(fontSize: 20),
                     )),
@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                     //forgot password screen
                   },
                   style: TextButton.styleFrom(primary: Colors.blue),
-                  child: Text('Forgot Password'),
+                  child: const Text('Forgot Password'),
                 ),
                 Container(
                     height: 50,
@@ -83,20 +83,22 @@ class _LoginPageState extends State<LoginPage> {
                     child: RaisedButton(
                         textColor: Colors.white,
                         color: Colors.blue,
-                        child: Text('Login '),
+                        child: const Text('Login '),
                         onPressed: () {
                           _login();
                         }
                     )),
                 TextButton(
                   onPressed: (){
-                    print("Login->Register");
+                    if (kDebugMode) {
+                      print("Login->Register");
+                    }
 
                     // Create Account
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Register()));
                   },
                   style: TextButton.styleFrom(primary: Colors.blue),
-                  child: Text('Do not have !! Create Account'),
+                  child: const Text('Do not have !! Create Account'),
                 ),
               ],
             )
@@ -110,10 +112,14 @@ class _LoginPageState extends State<LoginPage> {
     var response = await user.login();
 
     if (response.success) {
-      print("Login->Dashconnection");
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashConnection()));
+      if (kDebugMode) {
+        print("Login->Dashconnection");
+      }
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashConnection()));
     } else {
-      print(response.error!.message);
+      if (kDebugMode) {
+        print(response.error!.message);
+      }
       final snackbar = SnackBar(
           content: Text(
               response.error!.message));

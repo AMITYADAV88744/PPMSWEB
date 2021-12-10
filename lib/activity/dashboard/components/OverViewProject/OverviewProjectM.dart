@@ -20,14 +20,14 @@ class _OverviewProjectState extends State<OverviewProjectM> {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Expanded(
-          child: new Padding(
-            padding: EdgeInsets.all(defaultPadding),
+          child: Padding(
+            padding: const EdgeInsets.all(defaultPadding),
            child: TeamMember(),
           ),
         ),
-        Expanded(
-          child: new Padding(
-            padding: const EdgeInsets.all(defaultPadding),
+        const Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(defaultPadding),
             child: Chart(),
           ),
         ),

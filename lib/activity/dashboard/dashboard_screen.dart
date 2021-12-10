@@ -15,6 +15,8 @@ final ScrollController _controllerOne = ScrollController();
 class _DashboardScreen extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+
     return SafeArea(
       child: SingleChildScrollView(
         controller: _controllerOne,
@@ -33,7 +35,28 @@ class _DashboardScreen extends State<DashboardScreen> {
                       //TeamMember(),
                       const OverviewProject(),
                       const SizedBox(height: defaultPadding),
-                      const RecentFiles(),
+                       SizedBox(
+                        child:  Container(
+                          width:width ,
+                          padding: const EdgeInsets.all(defaultPadding),
+                          decoration: const BoxDecoration(color: secondaryColor,
+                              borderRadius:  BorderRadius.all(Radius.circular(10)
+                              )
+                          ),
+                          child: Column(
+                            children: const [
+                              Center(
+                                child: Text('Uploaded Document'),
+                              ),
+                              SizedBox(
+                                height: 250,
+                                child: RecentFiles(),
+                              )
+                            ],
+                          ),
+                        ),
+
+                      ),
                       if (Responsive.isMobile(context))
                         const SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))

@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppmsweb/Navigation_UI/controllers/MenuController.dart';
 import 'package:ppmsweb/activity/ProjectBasket/ProjectBasket.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 import '../../responsive.dart';
@@ -30,7 +29,7 @@ class Header extends StatelessWidget {
         if (!Responsive.isMobile(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
         const Expanded(child: SearchField()),
-        ProfileCard()
+        const ProfileCard()
       ],
     );
   }
@@ -87,7 +86,7 @@ class ProfileCard extends StatelessWidget {
             const Padding(
               padding:
                   EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-              child: Text("Amit"),
+              child: Text("Amit Yadav"),
             ),
           const Icon(Icons.keyboard_arrow_down),
         ],
@@ -108,18 +107,18 @@ class SearchField extends StatelessWidget {
         hintText: "Search",
         fillColor: secondaryColor,
         filled: true,
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderSide: BorderSide.none,
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         suffixIcon: InkWell(
           onTap: () {},
           child: Container(
             padding: const EdgeInsets.all(defaultPadding * 0.75),
             margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: primaryColor,
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             child: SvgPicture.asset("assets/icons/Search.svg"),
           ),
@@ -143,7 +142,7 @@ class HeaderT extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed:() {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => ProjectBasket()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => const ProjectBasket()));
             },
           ),
           const SizedBox(width: defaultPadding,),
@@ -178,7 +177,7 @@ class HeaderDP extends StatelessWidget {
           if (!Responsive.isMobile(context))
             Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
           const Expanded(child: SearchField()),
-          ProfileCard()
+          const ProfileCard()
 
         ]
     );

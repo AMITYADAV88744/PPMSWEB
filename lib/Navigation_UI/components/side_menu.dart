@@ -36,7 +36,7 @@ class SideMenu extends StatelessWidget {
             title: "Documents",
             svgSrc: "assets/icons/menu_doc.svg",
             press: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DocumentPage()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DocumentPage()));
 
             },
           ),
@@ -49,7 +49,7 @@ class SideMenu extends StatelessWidget {
             title: "Profile",
             svgSrc: "assets/icons/menu_profile.svg",
             press: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProfilePageScreen()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ProfilePageScreen()));
             },
           ),
           DrawerListTile(
@@ -59,7 +59,7 @@ class SideMenu extends StatelessWidget {
               final user = await ParseUser.currentUser() as ParseUser;
               var response = await user.logout();
               if (response.success) {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()));
               }
             },
           ),

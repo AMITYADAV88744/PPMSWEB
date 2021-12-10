@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ppmsweb/activity/dashboard/DashConnection.dart';
 import 'LoginPage.dart';
@@ -18,25 +18,25 @@ class _RegisterState extends State<Register> {
   late String _fullName;
   late String _userID;
 
-  bool _isLoading = false;
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
             child: ListView(
               children: <Widget>[
                 Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.all(10),
-                    child: Image(
+                    padding: const EdgeInsets.all(10),
+                    child: const Image(
                       image: AssetImage('assets/login_logo.png'),
                     ),
                 ),
                 Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.all(10),
-                    child: Text(
+                    padding: const EdgeInsets.all(10),
+                    child: const Text(
                       'Project Management',
                       style: TextStyle(
                           color: Colors.blue,
@@ -46,56 +46,56 @@ class _RegisterState extends State<Register> {
                 ),
                 Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.all(10),
-                    child: Text(
+                    padding: const EdgeInsets.all(10),
+                    child: const Text(
                       'Register',
                       style: TextStyle(fontSize: 20),
                     ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                   child: TextField(
                     onChanged: (value){
                       _fullName=value;
                     },
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Full Name',
                     ),
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  padding:const EdgeInsets.fromLTRB(10, 10, 10, 0),
                   child: TextField(
                     onChanged: (value){
                       _userID=value;
                     },
-                    decoration: InputDecoration(
+                    decoration:const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'UserID',
                     ),
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding:const EdgeInsets.all(10),
                   child: TextField(
                     onChanged: (value){
                       _email=value;
                     },
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Email',
                     ),
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  padding:const EdgeInsets.fromLTRB(10, 10, 10, 10),
                   child: TextField(
                     onChanged: (value){
                       _pass=value;
                     },
                     obscureText: true,
-                    decoration: InputDecoration(
+                    decoration:const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Password',
                     ),
@@ -103,11 +103,11 @@ class _RegisterState extends State<Register> {
                 ),
                 Container(
                     height: 50,
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    padding:const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: RaisedButton(
                       textColor: Colors.white,
                       color: Colors.blue,
-                      child: Text('Register '),
+                      child:const Text('Register '),
                       onPressed: () {
                         
                         _createaccount();
@@ -117,12 +117,14 @@ class _RegisterState extends State<Register> {
                 FlatButton(
                   onPressed: (){
                     // Create Account
-                    print("Register>Login");
+                    if (kDebugMode) {
+                      print("Register>Login");
+                    }
 
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>const LoginPage()));
                   },
                   textColor: Colors.blue,
-                  child: Text('Already have account!! Login '),
+                  child:const Text('Already have account!! Login '),
                 ),
               ],
             ),
@@ -137,7 +139,7 @@ class _RegisterState extends State<Register> {
           title: const Text("Error!"),
           content: Text(errorMessage),
           actions: <Widget>[
-            new FlatButton(
+            FlatButton(
               child: const Text("OK"),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -155,9 +157,11 @@ class _RegisterState extends State<Register> {
     var response = await user.signUp();
 
     if (response.success) {
-      print("Register->Dashconnection");
+      if (kDebugMode) {
+        print("Register->Dashconnection");
+      }
 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashConnection()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashConnection()));
     } else {
       showError(response.error!.message);
     }

@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ppmsweb/Navigation_UI/components/header.dart';
-import 'package:ppmsweb/Navigation_UI/controllers/MenuController.dart';
-import 'package:provider/src/provider.dart';
 import '../../constants.dart';
 import 'KProfile.dart';
 import 'components/profile_pic_card.dart';
@@ -30,10 +28,10 @@ class _PersonalDeatilCardState extends State<PersonalDeatilCard> {
                   flex: 5,
                   child: Column(
                     children: [
-                      HeaderPP(),
+                      const HeaderPP(),
                       ProfilePicCard(),
                       const SizedBox(height: defaultPadding),
-                      ProfilePageForm(),
+                      const ProfilePageForm(),
                     ],
                   ),
                 ),
@@ -58,15 +56,13 @@ class ProfilePageForm extends StatefulWidget {
 class _ProfilePageFormState extends State<ProfilePageForm> {
   @override
   Widget build(BuildContext context) {
-    final Size _size = MediaQuery
-        .of(context)
-        .size;
+
     return LayoutBuilder(
         builder: (context, constraints) {
           if (constraints.maxWidth > 600) {
             return const ProfilePageFormO();//for mobile
           } else {
-            return const ProfilePageFormM();//for tab
+            return const ProfilePageFormO();//for tab
           }
         },
 

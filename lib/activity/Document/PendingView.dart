@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppmsweb/models/PendingTask.dart';
-import 'package:ppmsweb/models/RecentFile.dart';
+import 'package:file_picker/file_picker.dart';
 
 import '../../constants.dart';
 
@@ -16,56 +16,37 @@ class PendingDocument extends StatefulWidget{
 }
 
 class _PendingDocumentState extends State<PendingDocument> {
-  String fileType = 'All';
-  var fileTypeList = ['All', 'Image', 'Video', 'Audio','MultipleFile'];
-  FilePickerResult? result;
-  PlatformFile? file;
+
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery
         .of(context)
         .size;
-    return Container(
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
-        color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Pending  Task",
-            style: Theme.of(context).textTheme.subtitle1,
+    return SizedBox(
+      width: double.infinity,
+      child: DataTable2(
+        columnSpacing: defaultPadding,
+        minWidth: 600,
+        columns: const [
+          DataColumn(
+            label: Text("File Name"),
           ),
-          SizedBox(
-            width: double.infinity,
-            child: DataTable2(
-              columnSpacing: defaultPadding,
-              minWidth: 600,
-              columns: [
-                DataColumn(
-                  label: Text("File Name"),
-                ),
-                DataColumn(
-                  label: Text("Due Date"),
-                ),
-                DataColumn(
-                  label: Text("Upload File"),
-                ),
-              ],
-              rows: List.generate(
-                demoPendingtask.length,
-                    (index) => pendingFileDataRow(demoPendingtask[index]),
-              ),
-            ),
+          DataColumn(
+            label: Text("Due Date"),
+          ),
+          DataColumn(
+            label: Text("Upload File"),
           ),
         ],
+        rows: List.generate(
+          demoPendingtask.length,
+              (index) => pendingFileDataRow(demoPendingtask[index]),
+        ),
       ),
     );
-
   }
-}
+
+
 
 DataRow pendingFileDataRow(PendingTask fileInfo) {
   return DataRow(
@@ -91,10 +72,27 @@ DataRow pendingFileDataRow(PendingTask fileInfo) {
           color: Colors.blue,
           child: Text('Choose File '),
           onPressed: () {
-
-
+            _pickFile();
           }
       )),
     ],
   );
 }
+
+  void _pickFile() async {
+
+
+      final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+
+      // if no file is picked
+      if (result == null) return;
+
+      // we will log the name, size and path of the
+      // first picked file (if multiple are selected)
+      print(result.files.first.name);
+      print(result.files.first.size);
+      print(result.files.first.path);
+    }
+
+  }
+

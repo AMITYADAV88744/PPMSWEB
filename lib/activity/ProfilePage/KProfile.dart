@@ -1,4 +1,4 @@
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
@@ -8,6 +8,7 @@ class ProfilePageFormO extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
+  @override
   _ProfilePageFormOState createState() => _ProfilePageFormOState();
 }
 
@@ -15,18 +16,25 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
   String path = 'default';
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   late DateTime dateOfBirth;
-  late String _dob='' ;
-  late String _mobileNo='';
+  late String _dob ;
+  late String _mobileNo;
   late int a = 0;
-  late  String displayName='';
-  late  String  _depart='';
-  late  String  _branch='';
-  late  String  _fatherName='';
-  late  String  _motherName='';
-  late  String  _bloodGroup='';
-  late  String  _address='';
-  late String username='';
-   late String email='';
+  late  String displayName;
+  late  String  _depart;
+  late  String  _branch;
+  late  String  _fatherName;
+  late  String  _motherName;
+  late  String  _bloodGroup;
+  late  String  _address;
+  late String username;
+   late String email;
+  ParseUser? currentUser;
+
+  Future<ParseUser?> getUserQuery() async {
+    currentUser = await ParseUser.currentUser() as ParseUser?;
+    return currentUser;
+  }
+
 
 
   Future<void> _selectDate() async {
@@ -54,301 +62,284 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 8),
-                    child:FutureBuilder<List<ParseObject>>(
+                    child:FutureBuilder<ParseUser?>(
                         future: getUserQuery(),
-                        builder: (context, snapshot) {
+                        builder: (context, snapshot){
                           switch (snapshot.connectionState) {
                             case ConnectionState.none:
                             case ConnectionState.waiting:
                             default:
-                              if (snapshot.hasError) {
-                                return Center(
-                                  child: Text("Error..."),);
-                              }
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: Text("No Data..."),);
-                              } else {
+                              return Column(
+                                  crossAxisAlignment: CrossAxisAlignment
+                                      .start,
+                                  children: <Widget>[
+                                    Row(
+                                      // mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .spaceBetween,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: ProfileFields(
+                                            width: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .width,
+                                            hintText: "",
+                                            labelText: "Name",
+                                            onChanged: (name) {
+                                              displayName = name;
+                                            },
+                                            controller: TextEditingController(
+                                                text: snapshot.data!.get("displayName")),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Expanded(
+                                          child: ProfileFields(
+                                            width: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .width,
+                                            hintText: "",
+                                            labelText: "UID",
+                                            onChanged: (id) {
+                                              username = id;
+                                            },
+                                            controller: TextEditingController(
+                                                text: snapshot.data!.username),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      // mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .spaceBetween,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: ProfileFields(
+                                            width: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .width,
+                                            labelText: "Department",
+                                            onChanged: (depart) {
+                                              _depart = depart;
+                                              //  _showSave();
+                                            },
+                                            hintText: '',
+                                            controller:
+                                            TextEditingController(
+                                                text: snapshot.data!.get("depart")),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Expanded(
+                                          child: ProfileFields(
+                                            width: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .width,
+                                            labelText: "Branch",
+                                            onChanged: (branch) {
+                                              _branch = branch;
+                                              //    _showSave();
+                                            },
+                                            hintText: '',
+                                            controller:
+                                            TextEditingController(
+                                                text: snapshot.data!.get("branch")),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      // mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .spaceBetween,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: ProfileFields(
+                                            width: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .width,
+                                            hintText: "",
+                                            labelText: "Father Name",
+                                            onChanged: (fatherName) {
+                                              _fatherName = fatherName;
+                                              //    _showSave();
+                                            },
+                                            controller:
+                                            TextEditingController(
+                                                text:snapshot.data!.get("f_name")),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Expanded(
+                                          child: ProfileFields(
+                                            width: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .width,
+                                            hintText: "",
+                                            labelText: "Mother Name",
+                                            onChanged: (motherName) {
+                                              _motherName = motherName;
+                                              // _showSave();
+                                            },
+                                            controller:
+                                            TextEditingController(
+                                                text: snapshot.data!.get("m_name")),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      // mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .spaceBetween,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: InkWell(
+                                            onTap: () async {
+                                              await _selectDate();
+                                            },
+                                            borderRadius: BorderRadius
+                                                .circular(16),
+                                            child: IgnorePointer(
+                                              child: ProfileFields(
+                                                  width: MediaQuery
+                                                      .of(context)
+                                                      .size
+                                                      .width,
+                                                  labelText: "DOB",
+                                                  onChanged: (dob) {
+                                                    _dob = dob;
+                                                    //     _showSave();
 
-                                for (int i = 0; i < snapshot.data!.length; i++) {
-                                  final snap = snapshot.data![i];
-                                   username = snap.get<String>('username')!;
-                                   email = snap.get<String>('email')!;
-                                   displayName = snap.get<String>('displayName')!;
-                                  return Column(
-                                    crossAxisAlignment: CrossAxisAlignment
-                                        .start,
-                                    children: <Widget>[
-                                      Row(
-                                        // mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .spaceBetween,
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: ProfileFields(
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .width,
-                                              hintText: "",
-                                              labelText: "Name",
-                                              onChanged: (name) {
-                                                displayName = name;
-                                              },
-                                              controller: TextEditingController(
-                                                  text: displayName),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Expanded(
-                                            child: ProfileFields(
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .width,
-                                              hintText: "",
-                                              labelText: "UID",
-                                              onChanged: (id) {
-                                                username = id;
-                                              },
-                                              controller: TextEditingController(
-                                                  text: username),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        // mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .spaceBetween,
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: ProfileFields(
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .width,
-                                              labelText: "Department",
-                                              onChanged: (depart) {
-                                                _depart = depart;
-                                             //  _showSave();
-                                              },
-                                              hintText: '',
-                                              controller:
-                                              TextEditingController(
-                                                  text: _depart),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Expanded(
-                                            child: ProfileFields(
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .width,
-                                              labelText: "Branch",
-                                              onChanged: (branch) {
-                                                _branch = branch;
-                                            //    _showSave();
-                                              },
-                                              hintText: '',
-                                              controller:
-                                              TextEditingController(
-                                                  text: _branch),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        // mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .spaceBetween,
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: ProfileFields(
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .width,
-                                              hintText: "",
-                                              labelText: "Father Name",
-                                              onChanged: (fatherName) {
-                                                _fatherName = fatherName;
-                                            //    _showSave();
-                                              },
-                                              controller:
-                                              TextEditingController(
-                                                  text:_fatherName),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Expanded(
-                                            child: ProfileFields(
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .width,
-                                              hintText: "",
-                                              labelText: "Mother Name",
-                                              onChanged: (motherName) {
-                                                _motherName = motherName;
-                                               // _showSave();
-                                              },
-                                              controller:
-                                              TextEditingController(
-                                                  text: _motherName),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        // mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .spaceBetween,
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: InkWell(
-                                              onTap: () async {
-                                                await _selectDate();
-                                              },
-                                              borderRadius: BorderRadius
-                                                  .circular(16),
-                                              child: IgnorePointer(
-                                                child: ProfileFields(
-                                                    width: MediaQuery
-                                                        .of(context)
-                                                        .size
-                                                        .width,
-                                                    labelText: "DOB",
-                                                    onChanged: (dob) {
-                                                      _dob = dob;
-                                                 //     _showSave();
-
-                                                    },
-                                                    hintText: '25/07/2000',
-                                                    controller: TextEditingController(
-                                                      text: _dob,
-                                                    )
-                                                  // initialText: dateOfBirth == null
-                                                  //     ? ''
-                                                  //     : dateOfBirth
-                                                  //         .toLocal()
-                                                  //         .toString()
-                                                  //         .substring(0, 10),
-                                                ),
+                                                  },
+                                                  hintText: '25/07/2000',
+                                                  controller: TextEditingController(
+                                                    text: snapshot.data!.get("dob"),
+                                                  )
+                                                // initialText: dateOfBirth == null
+                                                //     ? ''
+                                                //     : dateOfBirth
+                                                //         .toLocal()
+                                                //         .toString()
+                                                //         .substring(0, 10),
                                               ),
                                             ),
                                           ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Expanded(
-                                              child: ProfileFields(
-                                                width: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .width,
-                                                hintText: "B+",
-                                                labelText: "Blood Group",
-                                                onChanged: (bg) {
-                                                  bg = _bloodGroup;
-                                              //    _showSave();
-
-                                                },
-                                                controller: TextEditingController(
-                                                    text: _bloodGroup),
-                                              )
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        // mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .spaceBetween,
-                                        children: <Widget>[
-                                          Expanded(
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Expanded(
                                             child: ProfileFields(
                                               width: MediaQuery
                                                   .of(context)
                                                   .size
                                                   .width,
-                                              hintText: "",
-                                              labelText: "Email",
-                                              onChanged: (email) {
-                                                email = email;
+                                              hintText: "B+",
+                                              labelText: "Blood Group",
+                                              onChanged: (bg) {
+                                                bg = _bloodGroup;
+                                                //    _showSave();
+
+                                              },
+                                              controller: TextEditingController(
+                                                  text: snapshot.data!.get("blood_group")),
+                                            )
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      // mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .spaceBetween,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: ProfileFields(
+                                            width: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .width,
+                                            hintText: "",
+                                            labelText: "Email",
+                                            onChanged: (email) {
+                                              email = email;
                                               //  _showSave();
 
-                                              },
-                                              controller:
-                                              TextEditingController(
-                                                  text: email),
-                                            ),
+                                            },
+                                            controller:
+                                            TextEditingController(
+                                                text: snapshot.data!.emailAddress),
                                           ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Expanded(
-                                            child: ProfileFields(
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .width,
-                                              hintText: "",
-                                              labelText: "Contact No.",
-                                              onChanged: (mobile_no) {
-                                                mobile_no = _mobileNo;
-                                             //   _showSave();
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Expanded(
+                                          child: ProfileFields(
+                                            width: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .width,
+                                            hintText: "",
+                                            labelText: "Contact No.",
+                                            onChanged: (mobileNo) {
+                                              mobileNo = _mobileNo;
+                                              //   _showSave();
 
-                                              },
-                                              controller:
-                                              TextEditingController(
-                                                  text: _mobileNo),
-                                            ),
+                                            },
+                                            controller:
+                                            TextEditingController(
+                                                text: snapshot.data!.get("mobile")),
                                           ),
-                                        ],
-                                      ),
-                                      ProfileFields(
-                                        width: MediaQuery
-                                            .of(context)
-                                            .size
-                                            .width,
-                                        hintText: "",
-                                        labelText: "Address",
-                                        onChanged: (address) {
-                                          _address = address;
+                                        ),
+                                      ],
+                                    ),
+                                    ProfileFields(
+                                      width: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width,
+                                      hintText: "",
+                                      labelText: "Address",
+                                      onChanged: (address) {
+                                        _address = address;
                                         //  _showSave();
-                                        },
-                                        controller:
-                                        TextEditingController(text: _address),
-                                      ),
+                                      },
+                                      controller:
+                                      TextEditingController(text: snapshot.data!.get("address")),
+                                    ),
 
-                                      SizedBox(height: 20.0),
-                                      Container(
-                                          alignment: Alignment.center,
-                                          height: 50,
-                                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                          child: RaisedButton(
-                                              textColor: Colors.white,
-                                              color: Colors.blue,
-                                              child: Text('Save '),
-                                              onPressed: () {
-                                                _check();
-                                              }
-                                          )
-                                      )
-                                    ]
-                                  );
-                                }
-                                return Text('');
-                              }//
-                          }//
-                       }//
+                                    const SizedBox(height: 20.0),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        height: 50,
+                                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                        child: RaisedButton(
+                                            textColor: Colors.white,
+                                            color: Colors.blue,
+                                            child: const Text('Save '),
+                                            onPressed: () {
+                                              _check();
+                                            }
+                                        )
+                                    )
+                                  ]
+                              );
+                          }
+                        }
                     ),//
                   )
                 ],
@@ -361,7 +352,7 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
     if(username.isEmpty||email.isEmpty||displayName.isEmpty||_dob.isEmpty||
         _fatherName.isEmpty||_motherName.isEmpty||_branch.isEmpty||_mobileNo.isEmpty||_address.isEmpty){
       _scaffoldKey.currentState!.showSnackBar(
-          SnackBar(content:Text('You Need to fill all the details and a profile Photo'))
+          const SnackBar(content:Text('You Need to fill all the details and a profile Photo'))
       );
     }else{
 
@@ -371,7 +362,9 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
 
   Future<void>_save()async {
     ParseUser? currentUser;
-    print(_branch);
+    if (kDebugMode) {
+      print("Save:"+_branch);
+    }
     currentUser = await ParseUser.currentUser() as ParseUser?;
     currentUser!..set('displayName', displayName)..set('branch',_branch)..set('depart',_depart);
 
@@ -388,6 +381,7 @@ class ProfilePageFormM extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
+  @override
   _ProfilePageFormMState createState() => _ProfilePageFormMState();
 }
 
@@ -405,9 +399,16 @@ class _ProfilePageFormMState extends State<ProfilePageFormM> {
   late  String  _address;
   late String username;
   late String email;
+  ParseUser? currentUser;
+
+  Future<ParseUser?> getUserQuery() async {
+    currentUser = await ParseUser.currentUser() as ParseUser?;
+    return currentUser;
+  }
 
 
-  Future<Null> _selectDate(BuildContext context) async {
+
+  Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         initialDatePickerMode: DatePickerMode.day,
         context: context,
@@ -436,31 +437,16 @@ class _ProfilePageFormMState extends State<ProfilePageFormM> {
             Padding(
               padding: const EdgeInsets.symmetric(
                   vertical: 10, horizontal: 8),
-              child: FutureBuilder<List<ParseObject>>(
+              child: FutureBuilder<ParseUser?>(
                 future: getUserQuery(),
-                  builder: (context, snapshot){
+                  builder: (context, snapshot) {
                     switch (snapshot.connectionState) {
                       case ConnectionState.none:
                       case ConnectionState.waiting:
                       default:
                         if (snapshot.hasError) {
-                          return Center(
-                            child: Text("Error..."),
-                          );
-                        }
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: Text("No Data..."),
-                          );
-                        } else {
-                          //List _userID = [];
-                          for (int i = 0; i <
-                              snapshot.data!.length; i++) {
-                            final snap = snapshot.data![i];
-                            username = snap.get<String>('username')!;
-                            displayName = snap.get<String>('displayName')!;
-                            email = snap.get<String>('email')!;
-                            return Column(
+                          return
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 ProfileFields(
@@ -471,7 +457,7 @@ class _ProfilePageFormMState extends State<ProfilePageFormM> {
                                   hintText: "",
                                   labelText: "UserName",
                                   onChanged: (name) {
-                                   // print(name);
+                                    // print(name);
                                     displayName = name;
                                   },
                                   controller: TextEditingController(
@@ -485,7 +471,7 @@ class _ProfilePageFormMState extends State<ProfilePageFormM> {
                                   hintText: "",
                                   labelText: "UserID",
                                   onChanged: (id) {
-                                   // print(id);
+                                    // print(id);
                                     username = id;
                                   },
                                   controller:
@@ -504,15 +490,15 @@ class _ProfilePageFormMState extends State<ProfilePageFormM> {
                                             .width,
                                         labelText: "Department",
                                         onChanged: (depart) {
-                                         // print(depart);
-                                          _depart= depart;
+                                          // print(depart);
+                                          _depart = depart;
                                         },
                                         hintText: 'AIT-APEX',
                                         controller:
                                         TextEditingController(text: _depart),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Expanded(
@@ -523,7 +509,9 @@ class _ProfilePageFormMState extends State<ProfilePageFormM> {
                                             .width,
                                         labelText: "Branch",
                                         onChanged: (branch) {
-                                          print(branch);
+                                          if (kDebugMode) {
+                                            print(branch);
+                                          }
                                           _branch = branch;
                                         },
                                         hintText: 'AI&ML',
@@ -541,7 +529,7 @@ class _ProfilePageFormMState extends State<ProfilePageFormM> {
                                   hintText: "",
                                   labelText: "Father Name",
                                   onChanged: (fatherName) {
-                                      _fatherName = fatherName;
+                                    _fatherName = fatherName;
                                   },
                                   controller:
                                   TextEditingController(text: _fatherName),
@@ -569,7 +557,8 @@ class _ProfilePageFormMState extends State<ProfilePageFormM> {
                                         onTap: () async {
                                           await _selectDate(context);
                                         },
-                                        borderRadius: BorderRadius.circular(16),
+                                        borderRadius: BorderRadius.circular(
+                                            16),
                                         child: IgnorePointer(
                                           child: ProfileFields(
                                               width: MediaQuery
@@ -594,7 +583,7 @@ class _ProfilePageFormMState extends State<ProfilePageFormM> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Expanded(
@@ -619,12 +608,13 @@ class _ProfilePageFormMState extends State<ProfilePageFormM> {
                                       .of(context)
                                       .size
                                       .width,
-                                  hintText:"",
-                                  labelText:"Email",
-                                  onChanged:(mobile_no){
-                                    _mobileNo = mobile_no;
+                                  hintText: "",
+                                  labelText: "Email",
+                                  onChanged: (mobileNo) {
+                                    _mobileNo = mobileNo;
                                   },
-                                  controller: TextEditingController(text: _mobileNo),
+                                  controller: TextEditingController(
+                                      text: _mobileNo),
                                 ),
                                 ProfileFields(
                                   width: MediaQuery
@@ -633,8 +623,8 @@ class _ProfilePageFormMState extends State<ProfilePageFormM> {
                                       .width,
                                   hintText: "",
                                   labelText: "Contact No.",
-                                  onChanged: (mobile_no){
-                                    _mobileNo = mobile_no;
+                                  onChanged: (mobileNo) {
+                                    _mobileNo = mobileNo;
                                   },
                                   controller:
                                   TextEditingController(text: _mobileNo),
@@ -646,16 +636,17 @@ class _ProfilePageFormMState extends State<ProfilePageFormM> {
                                       .width,
                                   hintText: "",
                                   labelText: "Address",
-                                  onChanged: (mobile_no) {
-                                    _mobileNo = mobile_no;
+                                  onChanged: (mobileNo) {
+                                    _mobileNo = mobileNo;
                                   },
                                   controller:
                                   TextEditingController(text: _mobileNo),
                                 ),
                               ],
                             );
-                          }return Text('');
+
                         }
+                        return const Text('');
                     }
                   }
               )
@@ -664,24 +655,6 @@ class _ProfilePageFormMState extends State<ProfilePageFormM> {
         ),
       ),
     );
-  }
-}
-
-
-
-/*
-
- */
-Future<List<ParseObject>> getUserQuery()async{
-  QueryBuilder<ParseUser> queryUsers =
-  QueryBuilder<ParseUser>(ParseUser.forQuery());
-  final ParseResponse apiResponse = await queryUsers.query();
-
-  if(apiResponse.success && apiResponse.results != null){
-    return apiResponse.results as List<ParseObject>;
-
-  }else{
-    return [];
   }
 }
 
@@ -703,18 +676,18 @@ class ProfileFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 70,
       // width: width == null ? MediaQuery.of(context).size.width / 2.5 : width,
       child: TextField(
         enabled: isEditable,
         controller: controller,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w500,
         ),
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
 
           hintText: hintText,
           labelText: labelText,

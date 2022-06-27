@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 
 class CheckBoxListTileDemo extends StatefulWidget {
+  const CheckBoxListTileDemo({Key? key}) : super(key: key);
+
   @override
-  CheckBoxListTileDemoState createState() => new CheckBoxListTileDemoState();
+  CheckBoxListTileDemoState createState() =>  CheckBoxListTileDemoState();
 }
 
 class CheckBoxListTileDemoState extends State<CheckBoxListTileDemo> {
@@ -19,9 +21,9 @@ class CheckBoxListTileDemoState extends State<CheckBoxListTileDemo> {
         shrinkWrap: true,
           itemCount: checkBoxListTileModel.length,
           itemBuilder: (BuildContext context, int index) {
-            return new Container(
-                margin: EdgeInsets.only(top: defaultPadding),
-                padding: EdgeInsets.all(defaultPadding),
+            return Container(
+                margin: const EdgeInsets.only(top: defaultPadding),
+                padding: const EdgeInsets.all(defaultPadding),
                 decoration: BoxDecoration(
                   border: Border.all(width: 2, color: primaryColor.withOpacity(0.15)),
                   borderRadius: const BorderRadius.all(
@@ -30,13 +32,13 @@ class CheckBoxListTileDemoState extends State<CheckBoxListTileDemo> {
                 ),
               child: Column(
                 children: <Widget>[
-                  new CheckboxListTile(
+                  CheckboxListTile(
                     activeColor: Colors.white70,
                     dense: true,
                     //font change
-                    title: new Text(
+                    title: Text(
                       checkBoxListTileModel[index].title,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 0.5),
@@ -47,9 +49,7 @@ class CheckBoxListTileDemoState extends State<CheckBoxListTileDemo> {
                       itemChange(value!,index);
 
                     },
-                    /*  onChanged: (bool val) {
-                          itemChange(val, index);
-                        }*/
+
                   )
                 ],
               ),

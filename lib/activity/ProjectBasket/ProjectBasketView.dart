@@ -1,5 +1,5 @@
+
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:ppmsweb/models/ProjectList.dart';
 import '../../constants.dart';
@@ -14,17 +14,16 @@ class ProjectBasketView extends StatefulWidget {
 
 
 class _ProjectBasketView extends State<ProjectBasketView>  {
-  final ScrollController _firstController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(defaultPadding),
+        padding: const EdgeInsets.all(defaultPadding),
         child: Column(
           children: [
-            HeaderP(),
-            SizedBox(height: defaultPadding),
+            const HeaderP(),
+            const SizedBox(height: defaultPadding),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -37,26 +36,26 @@ class _ProjectBasketView extends State<ProjectBasketView>  {
                               switch (snapshot.connectionState) {
                                 case ConnectionState.none:
                                 case ConnectionState.waiting:
-                                  return Center(
-                                    child: Container(
+                                  return const Center(
+                                    child: SizedBox(
                                         width: 100,
                                         height: 100,
                                         child: CircularProgressIndicator()),
                                   );
                                 default:
                                   if (snapshot.hasError) {
-                                    return Center(
+                                    return const Center(
                                       child: Text("Error..."),
                                     );
                                   }
                                   if (!snapshot.hasData) {
-                                    return Center(
+                                    return const Center(
                                       child: Text("No Data..."),
                                     );
                                   } else {
 
                                     return ListView.builder(
-                                        padding: EdgeInsets.only(top: 10.0),
+                                        padding: const EdgeInsets.only(top: 10.0),
                                         itemCount: snapshot.data!.length,
                                         itemBuilder: (context, index) {
                                           //*************************************
@@ -67,7 +66,7 @@ class _ProjectBasketView extends State<ProjectBasketView>  {
 
                                           //************************************
                                           return Container(
-                                              margin: EdgeInsets.only(top: defaultPadding),
+                                              margin: const EdgeInsets.only(top: defaultPadding),
                                               decoration: BoxDecoration(
                                                 border: Border.all(width: 2, color: primaryColor.withOpacity(0.15)),
                                                 borderRadius: const BorderRadius.all(
@@ -75,7 +74,7 @@ class _ProjectBasketView extends State<ProjectBasketView>  {
                                                 ),
                                               ),
                                               child:ListTile(
-                                                leading:CircleAvatar(
+                                                leading:const CircleAvatar(
                                                   backgroundImage: NetworkImage(
                                                       "https://images.unsplash.com/photo-1547721064-da6cfb341d50"),
                                                 ),
@@ -121,48 +120,3 @@ class _ProjectBasketView extends State<ProjectBasketView>  {
   }
 }
 
-
-/*
-StreamBuilder<QuerySnapshot>(
-                          stream: FirebaseFirestore.instance.collection("ProjectBasket").snapshots(includeMetadataChanges: true),
-                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot>querySnapshot){
-                            if(querySnapshot.hasError)
-                              return Text("Some Error");
-                            if(querySnapshot.connectionState==ConnectionState.waiting){
-                              return CircularProgressIndicator();
-                            }else {
-                              final projectlist=querySnapshot.data!.docs;
-                              return ListView.builder(itemBuilder: (context,index){
-                                return Container(
-                                margin: EdgeInsets.only(top: defaultPadding),
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 2, color: primaryColor.withOpacity(0.15)),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(defaultPadding),
-                                  ),
-                                ),
-                                child: ListTile(
-                                  leading:CircleAvatar(
-                                    backgroundImage:
-                                    NetworkImage("https://images.unsplash.com/photo-1547721064-da6cfb341d50"),
-                                  ),
-                                  title: Text(projectlist[index]["p_title"]),
-                                  onTap: (){
-                                    String ptitle=projectlist[index]["p_title"];
-                                    int pid=projectlist[index]["p_id"];
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => SelectTeam(ptitle:ptitle,pid:pid),
-                                        ));
-
-                                  },
-                                ),
-                              );
-                            },
-                                itemCount:projectlist.length,
-                            );
-                            }
-                          },
-                        ),
- */

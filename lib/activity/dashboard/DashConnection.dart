@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:ppmsweb/activity/ProjectBasket/ProjectBasket.dart';
@@ -35,10 +36,14 @@ class _DashConnectionState extends State<DashConnection> {
 
     if (apiResponse.success && apiResponse.results != null) {
 
-      print("Dashconnection->DashBoard");
+      if (kDebugMode) {
+        print("Dashconnection->DashBoard");
+      }
       return true;
     }else{
-      print("Dashconnection->Project");
+      if (kDebugMode) {
+        print("Dashconnection->Project");
+      }
       return false;
     }
 
@@ -54,9 +59,9 @@ class _DashConnectionState extends State<DashConnection> {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
             case ConnectionState.waiting:
-              return Scaffold(
+              return const Scaffold(
                 body: Center(
-                  child: Container(
+                  child: SizedBox(
                       width: 100,
                       height: 100,
                       child: CircularProgressIndicator()),
@@ -64,9 +69,9 @@ class _DashConnectionState extends State<DashConnection> {
               );
             default:
               if (snapshot.hasData && snapshot.data!) {
-                return Main_Screen();
+                return const Main_Screen();
               } else {
-                return ProjectBasket();
+                return const ProjectBasket();
               }
           }
         })

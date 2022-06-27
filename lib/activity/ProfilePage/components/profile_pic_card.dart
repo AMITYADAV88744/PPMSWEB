@@ -1,16 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 
 class ProfilePicCard extends StatelessWidget{
+  const ProfilePicCard({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return  SizedBox(
           height: 200,
           child:Stack(
             children: <Widget>[
-              SizedBox(height: defaultPadding),
+              const SizedBox(height: defaultPadding),
               CircleAvatar(
                 radius: 70,
                 child: ClipOval(
@@ -23,8 +24,8 @@ class ProfilePicCard extends StatelessWidget{
               ),
               Positioned(bottom: 0,right:1 ,child: Container(
                 height: 40, width: 40,
-                child: Icon(Icons.add_a_photo, color: Colors.white,),
-                decoration: BoxDecoration(
+                child: const Icon(Icons.add_a_photo, color: Colors.white,),
+                decoration: const BoxDecoration(
                     color: Colors.deepOrange,
                     borderRadius: BorderRadius.all(Radius.circular(20))
                 ),

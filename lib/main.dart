@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'activity/Authentication/LoginPage.dart';
 import 'constants.dart';
@@ -8,19 +8,23 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final keyApplicationId = 'EEyRHEeh6nalrywa4014SQjttyGCbqbmeuNieDnc';
-  final keyClientKey = 'mBJpELW2OGkLbo912zU31T4C1AAFy39txKOIVEXl';
-  final keyParseServerUrl = 'https://parseapi.back4app.com';
+  const keyApplicationId = 'EEyRHEeh6nalrywa4014SQjttyGCbqbmeuNieDnc';
+  const keyClientKey = 'mBJpELW2OGkLbo912zU31T4C1AAFy39txKOIVEXl';
+  const keyParseServerUrl = 'https://parseapi.back4app.com';
 
   await Parse().initialize(keyApplicationId, keyParseServerUrl,
       clientKey: keyClientKey, autoSendSessionId: true);
 
-  print('done');
+  if (kDebugMode) {
+    print('done');
+  }
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget{
+  const MyApp({Key? key}) : super(key: key);
+
 
   Future<bool> hasUserLogged() async {
     ParseUser? currentUser = await ParseUser.currentUser() as ParseUser?;
@@ -58,9 +62,9 @@ class MyApp extends StatelessWidget{
               switch (snapshot.connectionState) {
                 case ConnectionState.none:
                 case ConnectionState.waiting:
-                return Scaffold(
+                return const Scaffold(
                     body: Center(
-                      child: Container(
+                      child: SizedBox(
                           width: 100,
                           height: 100,
                           child: CircularProgressIndicator()),
@@ -68,10 +72,14 @@ class MyApp extends StatelessWidget{
                   );
                 default:
                   if (snapshot.hasData && snapshot.data!) {
-                    print("main->Dashconnection");
+                    if (kDebugMode) {
+                      print("main->Dashconnection");
+                    }
                     return const DashConnection();
                   } else {
-                    print("main->LoginPage");
+                    if (kDebugMode) {
+                      print("main->LoginPage");
+                    }
                     return const LoginPage();
                   }
               }

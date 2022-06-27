@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:ppmsweb/Navigation_UI/controllers/MenuController.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import '../../../responsive.dart';
-import '../Main_Screen.dart';
 
 class HeaderP extends StatelessWidget {
   const HeaderP({
@@ -18,7 +18,7 @@ class HeaderP extends StatelessWidget {
       children: [
         if (!Responsive.isDesktop(context))
           IconButton(
-            icon: Icon(Icons.menu),
+            icon: const Icon(Icons.menu),
             onPressed: context.read<MenuController>().controlMenu,
           ),
         if (!Responsive.isMobile(context))
@@ -28,8 +28,10 @@ class HeaderP extends StatelessWidget {
           ),
         if (!Responsive.isMobile(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
-        Expanded(child: SearchField()),
-        ProfileCard()
+        const Expanded(
+            child: SearchField()
+        ),
+        const ProfileCard()
       ],
     );
   }
@@ -40,36 +42,49 @@ class ProfileCard extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: defaultPadding),
-      padding: EdgeInsets.symmetric(
-        horizontal: defaultPadding,
-        vertical: defaultPadding / 2,
-      ),
-      decoration: BoxDecoration(
-        color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        border: Border.all(color: Colors.white10),
-      ),
-      child: Row(
-        children: [
-          /*Image.asset(
-            "assets/profile_pic.JPG",
-            height: 38,
-          ),
+    ParseUser? currentUser;
 
-           */
-          if (!Responsive.isMobile(context))
-            Padding(
-              padding:
-              const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-              child: Text("Amit Yadav"),
-            ),
-          Icon(Icons.keyboard_arrow_down),
-        ],
-      ),
+    Future<ParseUser?> getUserQuery() async {
+      currentUser = await ParseUser.currentUser() as ParseUser?;
+      return currentUser;
+    }
+
+    return FutureBuilder<ParseUser?>(
+      future: getUserQuery(),
+      builder: (context, snapshot) {
+        switch(snapshot.connectionState){
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+          default :
+            return Container(
+              margin: const EdgeInsets.only(left: defaultPadding),
+              padding: const EdgeInsets.symmetric(
+                horizontal: defaultPadding,
+                vertical: defaultPadding / 2,
+              ),
+              decoration: BoxDecoration(
+                color: secondaryColor,
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                border: Border.all(color: Colors.white10),
+              ),
+              child: Row(
+                children: [
+
+                  if (!Responsive.isMobile(context))
+                     Padding(
+                      padding:
+                      const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+                      child: Text(snapshot.data!.get("displayName")),
+                    ),
+                  const Icon(Icons.keyboard_arrow_down),
+                ],
+              ),
+            );
+        }
+      },
     );
   }
 }
@@ -86,18 +101,18 @@ class SearchField extends StatelessWidget {
         hintText: "Search",
         fillColor: secondaryColor,
         filled: true,
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderSide: BorderSide.none,
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         suffixIcon: InkWell(
           onTap: () {},
           child: Container(
-            padding: EdgeInsets.all(defaultPadding * 0.75),
-            margin: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.all(defaultPadding * 0.75),
+            margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+            decoration: const BoxDecoration(
               color: primaryColor,
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             child: SvgPicture.asset("assets/icons/Search.svg"),
           ),

@@ -1,10 +1,10 @@
+
 import 'package:data_table_2/data_table_2.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ppmsweb/models/PendingTask.dart';
-import 'package:file_picker/file_picker.dart';
 
 import '../../constants.dart';
 
@@ -19,9 +19,7 @@ class _PendingDocumentState extends State<PendingDocument> {
 
   @override
   Widget build(BuildContext context) {
-    final Size _size = MediaQuery
-        .of(context)
-        .size;
+
     return SizedBox(
       width: double.infinity,
       child: DataTable2(
@@ -70,7 +68,7 @@ DataRow pendingFileDataRow(PendingTask fileInfo) {
       DataCell(RaisedButton(
           textColor: Colors.white,
           color: Colors.blue,
-          child: Text('Choose File '),
+          child: const Text('Choose File '),
           onPressed: () {
             _pickFile();
           }
@@ -83,15 +81,19 @@ DataRow pendingFileDataRow(PendingTask fileInfo) {
 
 
       final result = await FilePicker.platform.pickFiles(allowMultiple: false);
-
       // if no file is picked
       if (result == null) return;
-
       // we will log the name, size and path of the
       // first picked file (if multiple are selected)
-      print(result.files.first.name);
-      print(result.files.first.size);
-      print(result.files.first.path);
+      if (kDebugMode) {
+        print(result.files.first.name);
+      }
+      if (kDebugMode) {
+        print(result.files.first.size);
+      }
+      if (kDebugMode) {
+        print(result.files.first.path);
+      }
     }
 
   }

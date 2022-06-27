@@ -27,11 +27,11 @@ class _PersonalDeatilCardState extends State<PersonalDeatilCard> {
                 Expanded(
                   flex: 5,
                   child: Column(
-                    children: [
-                      const HeaderPP(),
+                    children: const [
+                      HeaderPP(),
                       ProfilePicCard(),
-                      const SizedBox(height: defaultPadding),
-                      const ProfilePageForm(),
+                      SizedBox(height: defaultPadding),
+                      ProfilePageForm(),
                     ],
                   ),
                 ),

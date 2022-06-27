@@ -46,8 +46,7 @@ class _MyStatefulWidgetState extends State<SelectTeamScreen> {
 
   _MyStatefulWidgetState(String p_id);
 
-
-
+  @override
   Widget build(BuildContext context) {
 
       return Scaffold(
@@ -296,7 +295,6 @@ class _MyStatefulWidgetState extends State<SelectTeamScreen> {
                                                   color: bgColor,
                                                   child: const Text('Save'),
                                                   onPressed: () {
-                                                    String pid;
                                                     _saveTeam();
                                                   }
                                               )),

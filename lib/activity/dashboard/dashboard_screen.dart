@@ -60,7 +60,7 @@ class _DashboardScreen extends State<DashboardScreen> {
                       if (Responsive.isMobile(context))
                         const SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))
-                        const StarageDetails(),
+                        const StorageDetails(),
                     ],
                   ),
                 ),
@@ -70,7 +70,7 @@ class _DashboardScreen extends State<DashboardScreen> {
                 if (!Responsive.isMobile(context))
                   const Expanded(
                     flex: 2,
-                    child: StarageDetails(),
+                    child: StorageDetails(),
                   ),
               ],
             )

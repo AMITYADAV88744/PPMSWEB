@@ -1,29 +1,29 @@
-class PendingTask{
-  final String? icon, title, duedate,uploadfile;
 
-  PendingTask({this.icon, this.title, this.duedate,this.uploadfile});
+import 'dart:convert';
+
+
+List<PendingTask> pendingTaskFromJson(String str) =>
+    List<PendingTask>.from(json.decode(str).map((x) => PendingTask.fromJson(x) as Map<String,dynamic>));
+
+String pendingTaskToJson(List<PendingTask> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+class PendingTask {
+  PendingTask({
+    required this.title,
+    required this.duedate,
+  });
+
+  String title;
+  String duedate;
+
+  factory PendingTask.fromJson(Map<String, dynamic> json) => PendingTask(
+    title: json["title"],
+    duedate: json["duedate"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "title": title,
+    "duedate": duedate,
+  };
 }
-
-List demoPendingtask = [
-
-  PendingTask(
-    icon: "assets/icons/doc_file.svg",
-    title: "Rubics 1",
-    duedate: "5-10-2021",
-    uploadfile: "",
-  ),
-  PendingTask(
-    icon: "assets/icons/doc_file.svg",
-    title: "Rubics 2",
-    duedate: "15-10-2021",
-    uploadfile: "",
-
-  ),
-  PendingTask(
-    icon: "assets/icons/doc_file.svg",
-    title: "Final Report",
-    duedate: "15-11-2021",
-    uploadfile: "Amit Yadav",
-
-  ),
-];

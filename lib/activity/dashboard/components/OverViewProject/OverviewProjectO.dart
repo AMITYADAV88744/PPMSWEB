@@ -15,7 +15,7 @@ class _OverviewProjectOState extends State<OverviewProjectO> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
+      children: const [
         Chart(),
         SizedBox(height: defaultPadding),
         TeamMember(),

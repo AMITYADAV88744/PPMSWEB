@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:ppmsweb/Navigation_UI/components/side_menu.dart';
 import 'package:ppmsweb/Navigation_UI/controllers/MenuController.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/src/provider.dart';
 import '../../responsive.dart';
 import 'DocumentCard.dart';
 
@@ -23,7 +22,7 @@ class _DocumentPageState extends State<DocumentPage> {
           create: (context) => MenuController(),
         ),
       ],
-      child: DocumentScreen(),
+      child: const DocumentScreen(),
     );
 
   }

@@ -13,19 +13,16 @@ class OverviewProjectM extends StatefulWidget {
 class _OverviewProjectState extends State<OverviewProjectM> {
   @override
   Widget build(BuildContext context) {
-    final Size _size = MediaQuery
-        .of(context)
-        .size;
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
+      children: const <Widget>[
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(defaultPadding),
+            padding: EdgeInsets.all(defaultPadding),
            child: TeamMember(),
           ),
         ),
-        const Expanded(
+        Expanded(
           child: Padding(
             padding: EdgeInsets.all(defaultPadding),
             child: Chart(),

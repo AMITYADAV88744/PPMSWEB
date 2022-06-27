@@ -152,7 +152,7 @@ class _RegisterState extends State<Register> {
   }
   void _createaccount() async {
 
-    final user = ParseUser.createUser(_userID, _pass, _email);
+    final user = ParseUser.createUser(_userID.toUpperCase(), _pass, _email);
     user.set("displayName", _fullName);
     var response = await user.signUp();
 

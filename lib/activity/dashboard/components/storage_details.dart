@@ -21,15 +21,15 @@ class StarageDetails extends StatelessWidget {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
+        children: const [
+          Text(
             "Your Task",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w500,
             ),
           ),
-          const SizedBox(height: defaultPadding),
+          SizedBox(height: defaultPadding),
           //Chart(),
          CheckBoxListTileDemo(),
 

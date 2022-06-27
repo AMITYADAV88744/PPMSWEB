@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _login() async {
-    final user = ParseUser(_email, _pass, null);
+    final user = ParseUser(_email.toUpperCase(), _pass, null);
 
     var response = await user.login();
 

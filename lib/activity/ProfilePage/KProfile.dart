@@ -19,16 +19,17 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
   late String _dob ;
   late String _mobileNo;
   late int a = 0;
-  late  String displayName;
-  late  String  _depart;
-  late  String  _branch;
-  late  String  _fatherName;
-  late  String  _motherName;
-  late  String  _bloodGroup;
-  late  String  _address;
+  late String displayName;
+  late String  _depart;
+  late String  _branch;
+  late String  _fatherName;
+  late String  _motherName;
+  late String  _bloodGroup;
+  late String  _address;
   late String username;
-   late String email;
+  late String email;
   ParseUser? currentUser;
+
 
   Future<ParseUser?> getUserQuery() async {
     currentUser = await ParseUser.currentUser() as ParseUser?;
@@ -52,13 +53,13 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
     }
   }
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
           return SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Column(
                 // fit: StackFit.loose,
-                children: <Widget>[
+                children: <Widget> [
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 8),
@@ -87,10 +88,11 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
                                             hintText: "",
                                             labelText: "Name",
                                             onChanged: (name) {
-                                              displayName = name;
+                                              name = displayName;
                                             },
                                             controller: TextEditingController(
-                                                text: snapshot.data!.get("displayName")),
+                                                text: snapshot.data!.get("displayName")
+                                            ),
                                           ),
                                         ),
                                         const SizedBox(
@@ -105,7 +107,7 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
                                             hintText: "",
                                             labelText: "UID",
                                             onChanged: (id) {
-                                              username = id;
+                                              id = username;
                                             },
                                             controller: TextEditingController(
                                                 text: snapshot.data!.username),
@@ -126,7 +128,7 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
                                                 .width,
                                             labelText: "Department",
                                             onChanged: (depart) {
-                                              _depart = depart;
+                                              depart = _depart;
                                               //  _showSave();
                                             },
                                             hintText: '',
@@ -146,13 +148,14 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
                                                 .width,
                                             labelText: "Branch",
                                             onChanged: (branch) {
-                                              _branch = branch;
+                                              branch = _branch;
                                               //    _showSave();
                                             },
                                             hintText: '',
                                             controller:
                                             TextEditingController(
-                                                text: snapshot.data!.get("branch")),
+                                                text: snapshot.data!.get("branch")
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -171,12 +174,12 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
                                             hintText: "",
                                             labelText: "Father Name",
                                             onChanged: (fatherName) {
-                                              _fatherName = fatherName;
+                                              fatherName = _fatherName;
                                               //    _showSave();
                                             },
                                             controller:
                                             TextEditingController(
-                                                text:snapshot.data!.get("f_name")),
+                                                text:snapshot.data!.get("father")),
                                           ),
                                         ),
                                         const SizedBox(
@@ -191,7 +194,7 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
                                             hintText: "",
                                             labelText: "Mother Name",
                                             onChanged: (motherName) {
-                                              _motherName = motherName;
+                                              motherName = _motherName;
                                               // _showSave();
                                             },
                                             controller:
@@ -221,7 +224,7 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
                                                       .width,
                                                   labelText: "DOB",
                                                   onChanged: (dob) {
-                                                    _dob = dob;
+                                                    dob = _dob;
                                                     //     _showSave();
 
                                                   },
@@ -253,7 +256,6 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
                                               onChanged: (bg) {
                                                 bg = _bloodGroup;
                                                 //    _showSave();
-
                                               },
                                               controller: TextEditingController(
                                                   text: snapshot.data!.get("blood_group")),
@@ -315,7 +317,7 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
                                       hintText: "",
                                       labelText: "Address",
                                       onChanged: (address) {
-                                        _address = address;
+                                        address = _address;
                                         //  _showSave();
                                       },
                                       controller:
@@ -332,7 +334,8 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
                                             color: Colors.blue,
                                             child: const Text('Save '),
                                             onPressed: () {
-                                              _check();
+                                              _save();
+
                                             }
                                         )
                                     )
@@ -347,7 +350,7 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
             ),
           );
   }
-  Future<void>_check()async{
+ /* Future<void>_check()async{
 
     if(username.isEmpty||email.isEmpty||displayName.isEmpty||_dob.isEmpty||
         _fatherName.isEmpty||_motherName.isEmpty||_branch.isEmpty||_mobileNo.isEmpty||_address.isEmpty){
@@ -355,24 +358,24 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
           const SnackBar(content:Text('You Need to fill all the details and a profile Photo'))
       );
     }else{
-
       _save();
       }
     }
-
+*/
   Future<void>_save()async {
     ParseUser? currentUser;
     if (kDebugMode) {
-      print("Save:"+_branch);
-    }
-    currentUser = await ParseUser.currentUser() as ParseUser?;
-    currentUser!..set('displayName', displayName)..set('branch',_branch)..set('depart',_depart);
+      print("Save:");
 
-    await currentUser.save();
+    }
+    if (kDebugMode) {
+      print(displayName);
+    }
+
   }
 
 }
-
+/*
 //// fOR MOBILE
 
 class ProfilePageFormM extends StatefulWidget {
@@ -422,9 +425,6 @@ class _ProfilePageFormMState extends State<ProfilePageFormM> {
       });
     }
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -657,7 +657,7 @@ class _ProfilePageFormMState extends State<ProfilePageFormM> {
     );
   }
 }
-
+*/
 class ProfileFields extends StatelessWidget {
   final String labelText;
   final String hintText;
@@ -666,7 +666,7 @@ class ProfileFields extends StatelessWidget {
   final TextEditingController controller;
   final bool isEditable;
 
-  const ProfileFields(
+   ProfileFields(
       {required this.labelText,
         required this.hintText,
         required this.onChanged,

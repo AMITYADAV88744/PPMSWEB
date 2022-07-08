@@ -1,14 +1,10 @@
 
-import 'dart:html';
-
 import 'package:data_table_2/data_table_2.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-import 'package:ppmsweb/models/PendingTask.dart';
 import '../../constants.dart';
 
 class PendingDocument extends StatefulWidget{
@@ -49,17 +45,13 @@ class _PendingDocumentState extends State<PendingDocument> {
                     child: Text("No Data..."),
                   );
                 } else {
-                  var index = snapshot.data!.length;
                   var pendingTask = snapshot.data!;
                   int i = pendingTask.length;
                   for (int j = 0; j < i; j++) {
                     if (kDebugMode) {
                       print(pendingTask[j].get('title'));
-
                     }
                   }
-
-
                   return DataTable2(
                       columnSpacing: defaultPadding,
                       minWidth: 600,
@@ -99,14 +91,17 @@ class _PendingDocumentState extends State<PendingDocument> {
                                   Text(pendingTask[index].get('duedate'),)
                               ),
                               DataCell(
-                                  RaisedButton(
-                                    textColor: Colors.white,
-                                    color: Colors.blueAccent,
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.blueAccent,
+                                      textStyle: const TextStyle(color: Colors.white),
+                                    ),
                                     onPressed: () {
-                                      _pickFile(titles);
+                                      _getSelectedRowInfo(pendingTask[index].get('title'),pendingTask[index].get('duedate'));
+                                      //_pickFile(titles);
                                     },
-                                    child: const Text('Choose File'),), 
-                                onTap: (){_getSelectedRowInfo(pendingTask[index].get('title'),pendingTask[index].get('duedate'));},
+                                    child: const Text('Choose File'),
+                                  ),
                               ),
                             ]
                         );
@@ -132,7 +127,6 @@ class _PendingDocumentState extends State<PendingDocument> {
   }
 
   void _getSelectedRowInfo(title, duedate) {
-
     titles=title;
     return _pickFile(titles);
   }
@@ -149,7 +143,7 @@ class _PendingDocumentState extends State<PendingDocument> {
       if (kIsWeb) {
         //Flutter Web
         parseFile = ParseWebFile(
-            await result.files.first.bytes,
+            result.files.first.bytes,
             name: '${result.files.first.name}.txt'); //Name for file is required
 
         await parseFile.save();

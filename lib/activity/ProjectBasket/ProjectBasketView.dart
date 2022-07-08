@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-import 'package:ppmsweb/models/ProjectList.dart';
 import '../../constants.dart';
 import '../SelectTeam/SelectTeam.dart';
 import 'HeaderP.dart';
@@ -80,15 +79,9 @@ class _ProjectBasketView extends State<ProjectBasketView>  {
                                                 ),
                                                 title: Text(varTitle),
                                                 onTap: (){
-                                                  final ProjectList projectdata = ProjectList(
-                                                       p_title: varTitle, p_id: varPid,
+                                                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SelectTeam(pid: varPid,title:varTitle)));
 
-                                                  );
-                                                  Navigator.push(context,
-                                                      MaterialPageRoute(builder: (
-                                                          context) => SelectTeam(projectList:projectdata),
-                                                      )
-                                                  );
+                                                //  Navigator.push(context, MaterialPageRoute(builder: (context) =>  const SelectTeam(),));
                                                   },
                                               ),
                                           );

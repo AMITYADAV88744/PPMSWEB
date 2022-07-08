@@ -104,17 +104,21 @@ class _RegisterState extends State<Register> {
                 Container(
                     height: 50,
                     padding:const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: RaisedButton(
-                      textColor: Colors.white,
-                      color: Colors.blue,
+                    child: TextButton(
+
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          primary: Colors.white,
+                          textStyle: const TextStyle(color: Colors.white),
+                        ),
                       child:const Text('Register '),
                       onPressed: () {
-                        
                         _createaccount();
 
                       }
-                    )),
-                FlatButton(
+                    )
+                ),
+                TextButton(
                   onPressed: (){
                     // Create Account
                     if (kDebugMode) {
@@ -123,7 +127,6 @@ class _RegisterState extends State<Register> {
 
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>const LoginPage()));
                   },
-                  textColor: Colors.blue,
                   child:const Text('Already have account!! Login '),
                 ),
               ],
@@ -139,12 +142,11 @@ class _RegisterState extends State<Register> {
           title: const Text("Error!"),
           content: Text(errorMessage),
           actions: <Widget>[
-            FlatButton(
-              child: const Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
+            TextButton(onPressed: () {
+              Navigator.of(context).pop();
+            },
+                child: const Text("OK"),
+            )
           ],
         );
       },

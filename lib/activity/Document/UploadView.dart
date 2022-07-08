@@ -2,10 +2,8 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
-import '../../constants.dart';
 
 class UploadDocument extends StatefulWidget{
   const UploadDocument({Key? key}) : super(key: key);
@@ -45,7 +43,6 @@ class UploadDocumentState extends State<UploadDocument> {
                     child: Text("No Data..."),
                   );
                 } else {
-                  var index = snapshot.data!.length;
                   var uploadTask = snapshot.data!;
                   int i = uploadTask.length;
                   for (int j = 0; j < i; j++) {

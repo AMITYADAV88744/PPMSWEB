@@ -80,20 +80,23 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                     height: 50,
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: RaisedButton(
-                        textColor: Colors.white,
-                        color: Colors.blue,
-                        child: const Text('Login '),
+                    child:TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          primary: Colors.white,
+                          textStyle: const TextStyle(color: Colors.white),
+                        ),
+                        child:const Text('Login '),
                         onPressed: () {
                           _login();
                         }
-                    )),
+                    )
+                ),
                 TextButton(
                   onPressed: (){
                     if (kDebugMode) {
                       print("Login->Register");
                     }
-
                     // Create Account
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Register()));
                   },

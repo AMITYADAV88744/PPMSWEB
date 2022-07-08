@@ -1,7 +1,5 @@
 
 import 'dart:convert';
-
-
 List<PendingTask> pendingTaskFromJson(String str) =>
     List<PendingTask>.from(json.decode(str).map((x) => PendingTask.fromJson(x) as Map<String,dynamic>));
 

@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:flutter/foundation.dart';
-import 'package:ppmsweb/models/ProjectList.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
@@ -13,9 +12,8 @@ import '../../responsive.dart';
 
 class SelectTeam extends StatelessWidget {
 
-  final ProjectList projectList;
 
-  const SelectTeam({Key? key,   required this.projectList,}) : super(key: key);
+  const SelectTeam({Key? key, required pid, required title,}) : super(key: key);
   @override
   Widget build(BuildContext context) {
 
@@ -25,18 +23,15 @@ class SelectTeam extends StatelessWidget {
           create: (context) => MenuController(),
         ),
       ],
-      child:SelectTeamScreen(projectList:projectList),
+      child:SelectTeamScreen(),
     );
   }
 }
 class SelectTeamScreen extends StatefulWidget{
-  final ProjectList projectList;
-
-  const SelectTeamScreen({Key? key, required this.projectList, }) : super(key: key);
+  const SelectTeamScreen({Key? key, }) : super(key: key);
 
   @override
-  State<SelectTeamScreen> createState() => _MyStatefulWidgetState(projectList.p_id.toString());
-
+  State<SelectTeamScreen> createState() => _MyStatefulWidgetState();
 }
 class _MyStatefulWidgetState extends State<SelectTeamScreen> {
   var selectedmember1;
@@ -44,11 +39,11 @@ class _MyStatefulWidgetState extends State<SelectTeamScreen> {
   var selectedmember3;
   var selectedmember4;
 
-  _MyStatefulWidgetState(String p_id);
+  _MyStatefulWidgetState();
 
   @override
   Widget build(BuildContext context) {
-
+    String pid;
       return Scaffold(
         key: context.read<MenuController>().scaffoldKey,
         drawer: const SideMenu(),
@@ -329,7 +324,7 @@ class _MyStatefulWidgetState extends State<SelectTeamScreen> {
     final _createTeam = ParseObject('StudentTeam')..set('teamID',teamId)..set('projectID',projectID)
       ..set('member_1', selectedmember1)..set('role_1', 'Leader')
       ..set('member_2', selectedmember2)..set('role_2', '')..
-      set('member_3', selectedmember3)..set('role_3', '')
+      set('member_3', selectedmember3)..set('role_3','' )
       ..set('member_4', selectedmember4)..set('role_4', '');
     await _createTeam.save();
     final setstaus = ParseObject('ProjectStatus')

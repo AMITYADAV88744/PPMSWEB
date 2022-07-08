@@ -80,9 +80,6 @@ class _TeamMember extends State<TeamMember> {
                         print(snap);
                       }
                     }
-                    if (kDebugMode) {
-                      print(member_1);
-                    }
                     return ListView(
                         shrinkWrap: true,
                         children: <Widget>[
@@ -100,14 +97,24 @@ class _TeamMember extends State<TeamMember> {
                                   "assets/images/avtar_team.png"),
                             ),
                             title: Text(member_2),
-                            trailing: Text(role_2),),
+                            trailing:role_2.isEmpty
+                                ? IconButton(
+                                onPressed: addrole(),
+                                icon: const Icon(Icons.add)
+                            )
+                                :Text(role_2),),
                           ListTile(
                             leading: const CircleAvatar(
                               backgroundImage: AssetImage(
                                   "assets/images/avtar_team.png"),
                             ),
                             title: Text(member_3),
-                            trailing: Text(role_3),
+                            trailing:role_3.isEmpty
+                                ? IconButton(
+                                onPressed: addrole(),
+                                icon: const Icon(Icons.add)
+                            )
+                            :Text(role_3),
                           ),
                           ListTile(
                             leading: const CircleAvatar(
@@ -115,7 +122,15 @@ class _TeamMember extends State<TeamMember> {
                                   "assets/images/avtar_team.png"),
                             ),
                             title: Text(member_4),
-                            trailing: Text(role_4),
+                            trailing:role_4.isEmpty
+                              ? IconButton(
+                                onPressed: addrole(),
+                                icon: const Icon(Icons.add)
+                            )
+                                :Text(role_4),
+
+
+
                           ),
                         ]
                     );
@@ -126,6 +141,8 @@ class _TeamMember extends State<TeamMember> {
 
     );
   }
+
+  addrole() {}
 
 
 }

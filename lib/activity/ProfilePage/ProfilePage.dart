@@ -4,7 +4,6 @@ import 'package:ppmsweb/Navigation_UI/components/side_menu.dart';
 import 'package:ppmsweb/Navigation_UI/controllers/MenuController.dart';
 import 'package:ppmsweb/activity/ProfilePage/personal_deatil.dart';
 import 'package:provider/provider.dart';
-import '../../constants.dart';
 import '../../responsive.dart';
 
 
@@ -25,13 +24,15 @@ class _ProfilePage_Screen extends State<ProfilePageScreen> {
           create: (context) => MenuController(),
         ),
       ],
-      child: ProfilePage(),
+      child: const ProfilePage(),
     );
 
   }
 }
 
 class ProfilePage extends StatelessWidget {
+  const ProfilePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

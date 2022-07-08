@@ -1,11 +1,7 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-import 'package:ppmsweb/models/RecentFile.dart';
-
-import '../../../constants.dart';
 
 class RecentFiles extends StatelessWidget {
   const RecentFiles({
@@ -41,7 +37,6 @@ class RecentFiles extends StatelessWidget {
                     child: Text("No Data..."),
                   );
                 } else {
-                  var index = snapshot.data!.length;
                   var uploadTask = snapshot.data!;
                   int i = uploadTask.length;
                   for (int j = 0; j < i; j++) {
@@ -61,7 +56,7 @@ class RecentFiles extends StatelessWidget {
                           label: Text("Date"),
                         ),
                         DataColumn(
-                          label: Text("Uplaoded By"),
+                          label: Text("Uploaded By"),
                         ),
                       ],
                       rows: List.generate(i, (index) {

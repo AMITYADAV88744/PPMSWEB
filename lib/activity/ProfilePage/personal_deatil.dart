@@ -27,11 +27,11 @@ class _PersonalDeatilCardState extends State<PersonalDeatilCard> {
                 Expanded(
                   flex: 5,
                   child: Column(
-                    children: const [
-                      HeaderPP(),
+                    children:  [
+                      const HeaderPP(),
                       ProfilePicCard(),
-                      SizedBox(height: defaultPadding),
-                      ProfilePageForm(),
+                      const SizedBox(height: defaultPadding),
+                      const ProfilePageForm(),
                     ],
                   ),
                 ),
@@ -62,7 +62,7 @@ class _ProfilePageFormState extends State<ProfilePageForm> {
           if (constraints.maxWidth > 600) {
             return const ProfilePageFormO();//for mobile
           } else {
-            return const ProfilePageFormO();//for tab
+            return const ProfilePageFormM();//for tab
           }
         },
 

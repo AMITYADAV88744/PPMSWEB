@@ -30,7 +30,7 @@ class _RegisterState extends State<Register> {
                     alignment: Alignment.center,
                     padding: const EdgeInsets.all(10),
                     child: const Image(
-                      image: AssetImage('assets/login_logo.png'),
+                      image: AssetImage('assets/images/login_logo.png'),
                     ),
                 ),
                 Container(

@@ -28,7 +28,7 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
   TextEditingController addressController = TextEditingController(); // initialize the controller
   TextEditingController fatherController = TextEditingController();// initialize the controller
   TextEditingController motherController = TextEditingController(); // initialize the controller
-//  TextEditingController dobController = TextEditingController(); // initialize the controller
+   TextEditingController dobController = TextEditingController(); // initialize the controller
   TextEditingController mobileController = TextEditingController(); // initialize the controller
   TextEditingController bloodController=TextEditingController(); // initialize the controller
 
@@ -92,6 +92,7 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
                               mobileController.text=snapshot.data!.get('mobile');
                               motherController.text=snapshot.data!.get('mother');
                               bloodController.text=snapshot.data!.get('bloodgroup');
+                              dobController.text=snapshot.data!.get('dob');
                                 return Column(
                                     crossAxisAlignment: CrossAxisAlignment
                                         .start,
@@ -251,9 +252,10 @@ class _ProfilePageFormOState extends State<ProfilePageFormO> {
                                                     },
                                                     hintText: '25/07/2000',
                                                     controller: TextEditingController(
-                                                      text: _dob,
+                                                      text: dobController.text,
                                                     )
-                                                  // initialText: dateOfBirth == null
+
+                                                  //initialText: dateOfBirth == null
                                                   //     ? ''
                                                   //     : dateOfBirth
                                                   //         .toLocal()
@@ -486,7 +488,8 @@ class _ProfilePageFormMState extends State<ProfilePageFormM> {
                                   print(displayName);
                                   },
                                 controller: TextEditingController(
-                                    text: snapshot.data!.get('displayName')),
+                                    text: snapshot.data!.get('displayName')
+                                ),
                               ),
                               ProfileFields(
                                 width: MediaQuery

@@ -13,7 +13,7 @@ import '../../responsive.dart';
 class SelectTeam extends StatelessWidget {
 
 
-  const SelectTeam({Key? key, required pid, required title,}) : super(key: key);
+   SelectTeam({Key? key, required pid, required title,}) : super(key: key);
   @override
   Widget build(BuildContext context) {
 
@@ -23,7 +23,7 @@ class SelectTeam extends StatelessWidget {
           create: (context) => MenuController(),
         ),
       ],
-      child:SelectTeamScreen(),
+      child:const SelectTeamScreen(),
     );
   }
 }

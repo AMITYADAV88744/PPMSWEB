@@ -18,19 +18,18 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-            padding: const EdgeInsets.all(20),
-            child: ListView(
+        body: ListView(
               children: <Widget>[
                 Container(
                     alignment: Alignment.center,
-                    padding: const EdgeInsets.all(10),
                     child: const Image(
-                      image: AssetImage('assets/login_logo.png'),
-                    )),
+                      image: AssetImage('assets/images/login_logo.png'),
+                      height: 350,
+                      width: 650,
+                    )
+                ),
                 Container(
                     alignment: Alignment.center,
-                    padding: const EdgeInsets.all(10),
                     child: const Text(
                       'Project Management',
                       style: TextStyle(
@@ -105,7 +104,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ],
             )
-        )
     );
   }
 
